@@ -28,6 +28,11 @@ const initialState: TourState = {
 
 const API_URL = 'http://localhost:3000/tours';
 
+export const filterTours = createAsyncThunk('tours/filterTours', async (query: string) => {
+    const response = await axios.get<Tour[]>(`${API_URL}/filter?query=${query}`)
+    return response.data;
+})
+
 export const fetchTours = createAsyncThunk('tours/fetchTours', async () => {
     const response = await axios.get<Tour[]>(API_URL);
     return response.data;
@@ -112,6 +117,20 @@ const tourSlice = createSlice({
             .addCase(updateTour.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || 'failed to update';
+            })
+
+            .addCase(filterTours.fulfilled, (state, action) => {
+                state.loading = false;
+                state.tours = action.payload;
+            })
+
+            .addCase(filterTours.pending, (state) => {
+                state.loading = true;
+            })
+
+            .addCase(filterTours.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message || "Can't find tours";
             })
     }
 })

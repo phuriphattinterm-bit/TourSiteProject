@@ -21,7 +21,7 @@ import { OrdersModule } from './orders/orders.module';
       password: process.env.DB_PASSWORD ?? '123456789',
       database: process.env.DB_NAME ?? 'toursite',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      synchronize: true,
     }),
     ToursModule,
     UsersModule,

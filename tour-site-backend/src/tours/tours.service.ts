@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, Like } from 'typeorm';
 import { Tour } from './tour.entity';
 
 @Injectable()
@@ -50,5 +50,13 @@ export class ToursService {
             throw new NotFoundException(`Tour with ID ${id} is not found`)
         } 
         await this.toursRepository.delete(id)
+    }
+
+    async search(query: String): Promise<Tour[]> {
+        const users = await this.toursRepository.find({where: {
+            title: Like('%' + query + '%')
+        }})
+
+        return users;
     }
 }

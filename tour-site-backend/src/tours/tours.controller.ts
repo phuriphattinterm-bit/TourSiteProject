@@ -1,10 +1,15 @@
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common';
 import { ToursService } from './tours.service';
 import { Tour } from './tour.entity';
 
 @Controller('tours')
 export class ToursController {
     constructor(private readonly toursService: ToursService) {}
+
+    @Get('filter')
+    filter(@Query('query') query: string): Promise<Tour[]> {
+        return this.toursService.search(query);
+    }
 
     @Get() // Get all tour
     findAll(): Promise<Tour[]> {

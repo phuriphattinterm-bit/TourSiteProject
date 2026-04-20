@@ -34,19 +34,6 @@ const TourForm: React.FC = () => {
         <div className="p-18 bg-gray-100 flex flex-col rounded-xl md:m-15 md:mx-50">
             <div className="flex justify-center gap-12">
                 {/*Left side - Display example*/}
-                {/*
-                <div className="md:w-100 w-85">
-                    <div className="md:h-70 md:w-100 rounded-3xl overflow-hidden">
-                        <img src={image_url} className="h-full w-full object-cover hover:scale-150 transition-all duration-500" />
-                    </div>
-                    <div className="flex justify-between items-center">
-                        <h2 className="text-2xl font-bold m-3">{title}</h2>
-                        <h2 className="text-2xl font-bold text-green-500">{price} {currency}</h2>
-                    </div>
-                    <h3 className="text-xl">{short_description}</h3>
-
-                </div>
-                */}
                 <div className="flex-1 rounded-3xl overflow-hidden">
                     <img src={image_url} className="h-full w-full object-cover hover:scale-150 transition-all duration-500" alt="Example Photo" />
                 </div>
