@@ -5,7 +5,7 @@
 The user interface for the Toursite application, allowing users to browse tours, and administrators to manage system data.
 
 ## 📦 Tech Stack
-* **Framework:** React / Next.js / Vue *(Choose yours)*
+* **Framework:** React / Next.js / Vite
 * **Styling:** Tailwind CSS *(Optional)*
 * **HTTP Client:** Axios / Fetch API
 
