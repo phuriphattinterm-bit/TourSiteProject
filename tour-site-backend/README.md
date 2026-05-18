@@ -39,10 +39,6 @@ Stores customer bookings.
 
 ## 🚀 Getting Started
 
-### Prerequisites
-* Node.js (v16+)
-* A running SQL Database instance
-
 ### Installation
 1. Clone the repository:
    
