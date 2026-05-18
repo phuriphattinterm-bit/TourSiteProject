@@ -1,98 +1,149 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# 🗺️ Toursite API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A backend service for managing tour bookings, built with TypeScript, Node.js, and TypeORM. This application handles the core entities required for a tour agency: available tours and customer booking orders.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 📦 Tech Stack
 
-## Description
+* **Language:** TypeScript
+* **ORM:** TypeORM
+* **Database:** Relational Database (e.g., PostgreSQL, MySQL)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## 🗄️ Database Schema
 
-## Project setup
+The database consists of two primary entities:
 
-```bash
-$ npm install
-```
+### `tours`
+Stores the catalog of available tours.
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `id` | Primary Key | Auto-generated unique identifier |
+| `title` | varchar(120) | Name of the tour |
+| `short_description`| varchar(255) | Brief summary for catalog view |
+| `long_description` | text | Full details and itinerary |
+| `image_url` | varchar(255) | URL to the tour's display image |
+| `price` | decimal(10,2)| Cost per person |
+| `currency` | varchar(3) | Default is `JPY` (Japanese Yen) |
+| `max_capacity` | int | Maximum number of guests allowed |
 
-## Compile and run the project
+### `orders`
+Stores customer bookings.
+| Column | Type | Description |
+| :--- | :--- | :--- |
+| `id` | Primary Key | Auto-generated unique identifier |
+| `tour_name` | varchar(120) | Name of the booked tour |
+| `tour_date` | date | Scheduled date for the tour |
+| `hotel_name` | varchar(120) | Guest's pickup/accommodation hotel |
+| `guest_number` | int | Total number of guests for this booking |
 
-```bash
-# development
-$ npm run start
+## 🚀 Getting Started
 
-# watch mode
-$ npm run start:dev
+### Prerequisites
+* Node.js (v16+)
+* A running SQL Database instance
 
-# production mode
-$ npm run start:prod
-```
+### Installation
+1. Clone the repository:
+   
+   ```bash
+   git clone <your-repo-url>
+   cd toursite
 
-## Run tests
+2. Install dependencies:
 
-```bash
-# unit tests
-$ npm run test
+   ```bash
+   npm install
 
-# e2e tests
-$ npm run test:e2e
+3. Create a `.env` file in the root directory and configure your database connection (or rely on the defaults in `app.module.ts`):
 
-# test coverage
-$ npm run test:cov
-```
+   ```env.example
+   DB_HOST=localhost
+   DB_PORT=3306
+   DB_USERNAME=root
+   DB_PASSWORD=123456789
+   DB_NAME=toursite
 
-## Deployment
+### Running the Application
+To start the server in development mode:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+   ```bash
+   npm run start:dev
+   ```
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### SQL Simulation Data
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+Run the following SQL commands in your database client to populate your tables with initial seed data.
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+```sql
+-- --------------------------------------------------------
+-- Seed Data for 'tours' table
+-- --------------------------------------------------------
 
-## Resources
+INSERT INTO tours (title, short_description, long_description, image_url, price, currency, max_capacity) 
+VALUES 
+(
+    'Kyoto Heritage Walk', 
+    'Explore the ancient temples and shrines of Kyoto.', 
+    'A full-day walking tour covering Kinkaku-ji, Fushimi Inari Taisha, and the Arashiyama Bamboo Forest. Includes a traditional tea ceremony.', 
+    '[https://example.com/images/kyoto-heritage.jpg](https://example.com/images/kyoto-heritage.jpg)', 
+    12500.00, 
+    'JPY', 
+    15
+),
+(
+    'Mount Fuji Day Trip', 
+    'Experience breathtaking views of Japan''s iconic peak.', 
+    'Travel by comfortable coach to the 5th Station of Mount Fuji, followed by a cruise on Lake Ashi and a ride on the Komagatake Ropeway.', 
+    '[https://example.com/images/mt-fuji.jpg](https://example.com/images/mt-fuji.jpg)', 
+    18000.00, 
+    'JPY', 
+    40
+),
+(
+    'Tokyo Neon Nights', 
+    'Discover the vibrant nightlife and street food of Shinjuku.', 
+    'A guided evening tour through Kabukicho, Omoide Yokocho (Memory Lane), and Golden Gai. Food and local drinks are included.', 
+    '[https://example.com/images/tokyo-nights.jpg](https://example.com/images/tokyo-nights.jpg)', 
+    8500.00, 
+    'JPY', 
+    10
+),
+(
+    'Osaka Culinary Experience', 
+    'Taste the famous street food of Dotonbori.', 
+    'Dive deep into Osaka''s food culture. Try authentic Takoyaki, Okonomiyaki, and Kushikatsu while exploring the vibrant Dotonbori district.', 
+    '[https://example.com/images/osaka-food.jpg](https://example.com/images/osaka-food.jpg)', 
+    9500.00, 
+    'JPY', 
+    20
+);
 
-Check out a few resources that may come in handy when working with NestJS:
+-- --------------------------------------------------------
+-- Seed Data for 'orders' table
+-- --------------------------------------------------------
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+INSERT INTO orders (tour_name, tour_date, hotel_name, guest_number) 
+VALUES 
+('Kyoto Heritage Walk', '2026-06-15', 'Kyoto Grand Hotel', 2),
+('Mount Fuji Day Trip', '2026-06-18', 'Shinjuku Prince Hotel', 4),
+('Tokyo Neon Nights', '2026-06-20', 'Shibuya Stream Excel', 2),
+('Kyoto Heritage Walk', '2026-06-22', 'Ritz-Carlton Kyoto', 1),
+('Osaka Culinary Experience', '2026-06-25', 'Namba Oriental Hotel', 6);
 
-## Support
+-- --------------------------------------------------------
+-- Seed Data for 'users' table
+-- --------------------------------------------------------
+-- ADMIN ACCOUNT DETAILS:
+-- Username: admin123
+-- Email: admin@gmail.com
+-- Unhashed Password: 1234Admin!
+-- --------------------------------------------------------
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+INSERT INTO users (username, password, email, admin) 
+VALUES (
+    'admin123', 
+    '$2b$10$X4tto3VpePoUnvnXPQ0RPe542JLUE3ISt78merARli0QEO9oyjGG6', 
+    'admin@gmail.com', 
+    TRUE
+);
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+---
