@@ -1,12 +1,14 @@
 # 🗺️ Toursite API
 
-A backend service for managing tour bookings, built with TypeScript, Node.js, and TypeORM. This application handles the core entities required for a tour agency: available tours and customer booking orders.
+A backend service for managing tour bookings, built with NestJS, TypeScript, Node.js, and TypeORM. This application handles the core entities required for a tour agency: user management, available tours, and customer booking orders.
 
 ## 📦 Tech Stack
 
+* **Framework:** NestJS (v11)
 * **Language:** TypeScript
 * **ORM:** TypeORM
-* **Database:** Relational Database (e.g., PostgreSQL, MySQL)
+* **Database Drivers:** MySQL (`mysql2`)
+* **Security:** Bcrypt (for password hashing) & NestJS JWT
 
 ## 🗄️ Database Schema
 
