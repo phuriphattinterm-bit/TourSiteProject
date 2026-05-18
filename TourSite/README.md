@@ -13,10 +13,6 @@ The user interface for the Toursite application, built with React, Vite, and Typ
 * **HTTP Client:** Axios (for connecting to the NestJS API)
 ## 🚀 Getting Started
 
-### Prerequisites
-* Node.js (v16+)
-* The Backend API server must be running at `http://localhost:3000`
-
 ### Installation
 
 1. Navigate to the frontend directory (if in a monorepo) or open the frontend repository:
