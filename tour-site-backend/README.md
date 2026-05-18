@@ -48,7 +48,7 @@ Stores customer bookings.
    
    ```bash
    git clone <your-repo-url>
-   cd toursite
+   cd tour-site-backend
 
 2. Install dependencies:
 
